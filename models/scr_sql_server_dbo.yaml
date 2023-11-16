@@ -3,6 +3,8 @@ version: 2
 sources:
 
   - name: sql_server_dbo # name of the source 
+    description: > 
+        Raw data from sql_server_dbo
     schema: sql_server_dbo # this is the schema our raw data lives in
     database: ALUMNO12_DEV_BRONZE_DB # this is the name of our database
 
@@ -18,6 +20,8 @@ sources:
     tables:
 
       - name: addresses
+        description: >
+              Direcciones de Estados Unidos
         loaded_at_field: _fivetran_synced
         columns:
           - name: address_id
