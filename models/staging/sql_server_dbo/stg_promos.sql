@@ -17,7 +17,8 @@ source as (
 stg_promos as (
 
     select
-        promo_id,
+        {{ dbt_utils.generate_surrogate_key(['promo_id']) }} as id_promo,
+        upper(promo_id) as promo_desc,
         discount,
         status,
         _fivetran_deleted,
@@ -27,4 +28,14 @@ stg_promos as (
 
 )
 
+
 select * from stg_promos
+union all
+select
+    '9999' as id_promo,
+    'SIN PROMO' as promo_desc,
+    null as discount,
+    null as status,
+    null as _fivetran_deleted,
+    null as _fivetran_synced
+

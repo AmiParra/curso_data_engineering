@@ -1,5 +1,5 @@
 
-
+-- Esto crea una CTE, transf_promos, traida del source. No necesito esto, puedo hacer directamente las transf en la stg_promos
 with 
 
 src_promos as (
@@ -10,14 +10,14 @@ src_promos as (
 transf_promos as (
     select
         upper(promo_id) as id_promo,
-        {{ dbt_utils.generate_surrogate_key(['promo_id']) }} as id_hashed,
+        {{ dbt_utils.generate_surrogate_key(['promo_id']) }} as id_hashed
         
-
-
 from src_promos
 
 )
 
 select * from transf_promos
 
+
         --decode(promo_id, '', '9999', 'WITHOUT_PROMO') as promo_id
+
