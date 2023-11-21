@@ -7,12 +7,15 @@ src_promos as (
     
 ),
 
-upper_promos as (
+transf_promos as (
     select
-         upper(promo_id) as promo_id,
-        {{ dbt_utils.generate_surrogate_key(['promo_id']) }} as promo_id_hash
+        upper(promo_id) as promo_id,
+        {{ dbt_utils.generate_surrogate_key(['promo_id']) }} as promo_id_hashed
+
 from src_promos
 
 )
 
-select * from upper_promos
+select * from transf_promos
+
+        --decode(promo_id, '', '9999', 'WITHOUT_PROMO') as promo_id
