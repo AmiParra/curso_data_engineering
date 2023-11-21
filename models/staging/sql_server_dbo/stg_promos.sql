@@ -33,7 +33,7 @@ select * from stg_promos
 union all
 select
     '9999' as id_promo,
-    'SIN PROMO' as promo_desc,
+    'WITHOUT PROMO' as promo_desc,
     null as discount,
     null as status,
     null as _fivetran_deleted,

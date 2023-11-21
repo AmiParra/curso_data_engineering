@@ -17,12 +17,13 @@ source as (
 stg_orders as (
 
     select
+        {{ dbt_utils.generate_surrogate_key(['promo_id']) }} as id_promo,
+        upper(decode(promo_id, '', '9999', promo_id)) as promo_desc,
         order_id,
         shipping_service,
         shipping_cost,
         address_id,
         created_at,
-        promo_id,
         estimated_delivery_at,
         order_cost,
         user_id,
