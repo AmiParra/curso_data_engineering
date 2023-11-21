@@ -11,8 +11,9 @@ WITH date_spine AS (
 
     SELECT
       date_day,
+      DAYNAME(date_day) as day_name,
       DATE_PART('month', date_day) as month,
-      DATE_PART('year', date_day) as year 
+      DATE_PART('year', date_day) as year
       from date_spine )
 
 select * from calculated
