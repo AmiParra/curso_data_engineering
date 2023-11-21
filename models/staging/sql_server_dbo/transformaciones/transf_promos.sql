@@ -9,8 +9,10 @@ src_promos as (
 
 transf_promos as (
     select
-        upper(promo_id) as promo_id,
-        {{ dbt_utils.generate_surrogate_key(['promo_id']) }} as promo_id_hashed
+        upper(promo_id) as id_promo,
+        {{ dbt_utils.generate_surrogate_key(['promo_id']) }} as id_hashed,
+        
+
 
 from src_promos
 
