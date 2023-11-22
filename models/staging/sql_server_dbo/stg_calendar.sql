@@ -15,7 +15,7 @@ WITH date_spine AS (
   {{ dbt_utils.date_spine(
       start_date="to_date('01/01/2021', 'mm/dd/yyyy')",
       datepart="day",
-      end_date="dateadd(year, 10, current_date())"
+      end_date="dateadd(year, 10, current_date()+1)"
      )
   }}
 
