@@ -17,8 +17,8 @@ source as (
 stg_orders as (
 
 select
-        decode(promo_id,'',{{ dbt_utils.generate_surrogate_key(['9999']) }},{{ dbt_utils.generate_surrogate_key(['upper(promo_id)']) }}),
-         decode(promo_id,'','WITHOUT-PROMO',promo_id),
+        decode(promo_id,'',{{ dbt_utils.generate_surrogate_key(['9999']) }},{{ dbt_utils.generate_surrogate_key(['upper(promo_id)']) }}) as id_promo,
+        decode(promo_id,'','WITHOUT-PROMO',upper(promo_id)) as  promo_desc,
         order_id,
         shipping_service,
         shipping_cost,
