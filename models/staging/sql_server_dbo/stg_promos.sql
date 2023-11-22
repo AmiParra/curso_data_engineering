@@ -32,8 +32,8 @@ stg_promos as (
 select * from stg_promos
 union all
 select
-    '9999' as id_promo,
-    'WITHOUT PROMO' as promo_desc,
+    {{ dbt_utils.generate_surrogate_key(['9999']) }} as id_promo,
+    'WITHOUT-PROMO' as promo_desc,
     null as discount,
     null as status,
     null as _fivetran_deleted,
