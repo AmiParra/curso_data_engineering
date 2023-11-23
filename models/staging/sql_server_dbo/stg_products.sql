@@ -17,6 +17,7 @@ stg_products as (
 
     select
         product_id,
+        {{ dbt_utils.generate_surrogate_key(['product_id']) }} as id_product,
         price as price_USD,
         name,
         inventory,
