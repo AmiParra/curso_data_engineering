@@ -38,4 +38,7 @@ select
 
 )
 
-select * from stg_orders
+select * from stg_orders;
+
+
+

@@ -17,7 +17,7 @@ stg_products as (
 
     select
         product_id,
-        price,
+        price as price_USD,
         name,
         inventory,
         _fivetran_deleted,
