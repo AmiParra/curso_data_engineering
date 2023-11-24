@@ -21,11 +21,12 @@ source as (
 stg_addresses as (
 
     select
+        cast({{ dbt_utils.generate_surrogate_key(['address_id']) }} as varchar) as id_address,
         address_id,
         zipcode,
-        country,
-        address,
-        state,
+        cast(country as varchar) as country,
+        cast(address as varchar) as address,
+        cast(state as varchar) as state,
         _fivetran_deleted,
         _fivetran_synced
 

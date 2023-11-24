@@ -16,11 +16,11 @@ source as (
 stg_products as (
 
     select
+        cast({{ dbt_utils.generate_surrogate_key(['product_id']) }} as varchar) as id_product,
         product_id,
-        {{ dbt_utils.generate_surrogate_key(['product_id']) }} as id_product,
-        price as price_USD,
-        name,
-        inventory,
+        cast(name as varchar) as product_name,
+        cast(price as float) as price_USD,
+        cast(inventory as int) as inventory,
         _fivetran_deleted,
         _fivetran_synced
 
