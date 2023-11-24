@@ -18,9 +18,9 @@ stg_promos as (
 
     select
         {{ dbt_utils.generate_surrogate_key(['promo_id']) }} as id_promo,
-        upper(promo_id) as promo_desc,
-        discount,
-        status,
+        upper(promo_id) as promo_description,
+        cast(discount as float) as discount,
+        cast(status as varchar) as status,
         _fivetran_deleted,
         _fivetran_synced
 
