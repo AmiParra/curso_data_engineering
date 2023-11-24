@@ -1,6 +1,7 @@
 {{
   config(
-    materialized='incremental'
+    materialized='incremental',
+    uniq_key='id_promo'
   )
 }}
 
