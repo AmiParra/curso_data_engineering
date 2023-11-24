@@ -1,4 +1,9 @@
+{{
+  config(
+    materialized='incremental'
+  )
 }}
+
 
 WITH stg_promos AS (
         SELECT * 
