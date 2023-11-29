@@ -36,7 +36,7 @@ stg_addresses as (
         address :: varchar as address,
         state :: varchar as state,
         _fivetran_deleted, -- procede de Fivetran como un bool
-        _fivetran_synced :: date as _fivetran_synced-- creo que voy a trabajar solo con date y sin time
+        _fivetran_synced :: date as _fivetran_synced-- creo que voy a trabajar solo con date, sin time
 
     from source
 
