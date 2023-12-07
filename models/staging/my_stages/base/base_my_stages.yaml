@@ -1,0 +1,23 @@
+version: 2
+
+models:
+      
+      - name: base_my_stg_addresses
+        description: >
+              Direcciones de Estados Unidos
+        columns:
+          - name: id_address
+          - name: zipcode
+          - name: address
+          - name: major_city
+          - name: state
+          - name: country
+          - name: latitude
+          - name: longitude
+          - name: geocoder_lat
+          - name: geocoder_long
+          - name: population
+          - name: housing_units
+          - name: density_population
+          - name: _fivetran_deleted
+          - name: _fivetran_synced

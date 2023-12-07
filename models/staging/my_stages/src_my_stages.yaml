@@ -1,0 +1,41 @@
+version: 2
+
+sources:
+
+  - name: my_stages # name of the source 
+    description: > 
+        Some more info from the sql_server_dbo
+    schema: my_stages # this is the schema our my new data lives in
+    database: "{{ env_var('DBT_ENVIRONMENTS') }}_SILVER_DB"# this is the name of our database
+
+    quoting:
+      database: false
+      schema: false
+      identifier: false
+
+##    freshness:
+##      warn_after: {count: 24, period: hour}
+##      error_after: {count: 48, period: hour}
+
+    tables:
+      
+      - name: my_stg_addresses
+        description: >
+              Direcciones de Estados Unidos
+        loaded_at_field: _fivetran_synced
+        columns:
+          - name: id_address
+          - name: zipcode
+          - name: address
+          - name: major_city
+          - name: state
+          - name: country
+          - name: latitude
+          - name: longitude
+          - name: geocoder_lat
+          - name: geocoder_long
+          - name: population
+          - name: housing_units
+          - name: density_population
+          - name: _fivetran_deleted
+          - name: _fivetran_synced
