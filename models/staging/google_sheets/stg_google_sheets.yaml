@@ -1,0 +1,16 @@
+version: 2
+
+models:
+  - name: stg_google_sheets
+    description: "Tabla con los presupuestos mensuales de cada producto"
+    columns:
+      - name: budget_id
+        description: "Identificador del presupuesto"
+      - name: month
+        description: "Mes para el que se define el presupuesto"
+      - name: product_id
+        description: "Clave foranea del producto presupuestado"
+      - name: quantity
+        description: "Cantidad de producto contemplada en el presupuesto"
+      - name: date_load
+        description: "Fecha de carga de los datos"
