@@ -1,3 +1,9 @@
+{{
+    config(
+        tags='Views'
+    )
+}}
+
 with 
 
 source as (
