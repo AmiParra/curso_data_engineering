@@ -43,6 +43,10 @@ models:
         +schema: google_sheets
       sql_server_dbo:
         +schema: sql_server_dbo
+      my_stages:
+        +schema: my_stages
+        base:
+          node_color: "black" 
       
     marts:
       +materialized: table
