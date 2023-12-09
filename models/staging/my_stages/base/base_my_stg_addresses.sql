@@ -18,11 +18,11 @@ renamed as (
         id_address,
         zipcode,
         address,
-        major_city,
+        decode(major_city, NULL,'Unknow',major_city) ::  varchar as  major_city,
         state,
         country,
         latitude,
-        longitude,
+        longitude
         geocoder_lat,
         geocoder_long,
         population,
