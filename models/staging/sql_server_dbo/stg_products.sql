@@ -1,7 +1,7 @@
 {{
-  config(
-    materialized='table'
-  )
+    config(
+        tags=['Views'],
+    )
 }}
 
 
@@ -29,7 +29,7 @@ stg_products as (
         product_id,
         name :: varchar as product_name,
         price :: float as price_USD, -- USD: United States Dollars
-        inventory :: int as inventory, -- las unidades que forman el inventario son enteros
+        inventory :: int as stock, -- las unidades que forman el inventario son enteros
         _fivetran_deleted, -- procede de Fivetran como un bool
         _fivetran_synced :: date as _fivetran_synced-- creo que voy a trabajar solo con date, sin time
 
