@@ -1,10 +1,4 @@
-{{
-    config(
-        materialized='incremental',
-        unique_key=['id_address'],
-        tags=['incremental'] 
-    )
-}}
+
 
 with
     base_stg_addresses as (select * from {{ ref("base_stg_addresses") }}),
@@ -39,8 +33,8 @@ with
 select * from stg_addresses
 
 
-{% if is_incremental() %}
+--{% if is_incremental() %}
 
-  where _fivetran_synced > (select max(_fivetran_synced) from {{ this }})
+--  where _fivetran_synced > (select max(_fivetran_synced) from {{ this }})
 
-{% endif %}
+--{% endif %}
