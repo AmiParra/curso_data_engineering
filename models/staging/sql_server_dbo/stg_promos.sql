@@ -1,10 +1,8 @@
-
 {{
-  config(
-    materialized='table'
-  )
+    config(
+        tags=['Views'],
+    )
 }}
-
 
 with 
 
