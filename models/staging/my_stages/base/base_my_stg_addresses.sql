@@ -22,7 +22,7 @@ renamed as (
         state,
         country,
         latitude,
-        longitude
+        longitude,
         geocoder_lat,
         geocoder_long,
         population,

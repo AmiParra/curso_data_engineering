@@ -17,9 +17,8 @@ source as (
 stg_orders_items as (
 
     select
-        {{ dbt_utils.generate_surrogate_key(['order_id']) }} :: varchar as id_order_items,
+        {{ dbt_utils.generate_surrogate_key(['order_id', 'product_id']) }} :: varchar as id_order_items,
         order_id,
-        {{ dbt_utils.generate_surrogate_key(['product_id']) }} :: varchar as id_product,
         product_id,
         quantity :: int as quantity,
         _fivetran_deleted,
