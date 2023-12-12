@@ -3,13 +3,13 @@
 with 
     order_delivery as (
         select 
-
+            decode(shipping_service,'',{{ dbt_utils.generate_surrogate_key(['9999']) }},{{ dbt_utils.generate_surrogate_key(['shipping_service']) }})  as id_shipping_service,
+            decode(shipping_service, '', 'Non assigned', shipping_service) as shipping_service,
             id_order,
-            shipping_service,
             shipping_cost_USD,
-            id_address,
             order_cost_USD,
             order_total_USD,
+            id_address,
             id_tracking,
             status,
             created_at,
@@ -36,10 +36,10 @@ with
         from {{ ref('stg_orders') }}
 
 
-),
+)
 
 
-    order_delivery_info as (
+  /*   order_delivery_info as (
         select
              {{ dbt_utils.generate_surrogate_key(['shipping_service', 'created_at', 'estimated_delivery_at', 'delivered_at', 'time_to_deliver', 'earlier_days', 'delay_days'])}} as id_delivery_info,
             id_order,
@@ -63,6 +63,7 @@ with
         from order_delivery
 
     )
+*/
 
-select * from  order_delivery_info
+select * from  order_delivery
 
