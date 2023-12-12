@@ -28,3 +28,7 @@
 
 select * from fct_logistic
 
+
+
+
+

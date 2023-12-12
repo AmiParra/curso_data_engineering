@@ -14,12 +14,13 @@ source as (
 
 ),
 
-stg_orders_items as (
+stg_order_items as (
 
     select
         {{ dbt_utils.generate_surrogate_key(['order_id', 'product_id']) }} :: varchar as id_order_items,
-        order_id,
-        product_id,
+        --order_id as id_order,
+        cast({{ dbt_utils.generate_surrogate_key(['order_id']) }} as varchar) as id_order,
+        {{ dbt_utils.generate_surrogate_key(['product_id']) }} :: varchar as id_product,
         quantity :: int as quantity,
         _fivetran_deleted,
         _fivetran_synced :: date as _fivetran_synced
@@ -28,4 +29,4 @@ stg_orders_items as (
 
 )
 
-select * from stg_orders_items
+select * from stg_order_items
