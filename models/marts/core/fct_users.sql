@@ -12,13 +12,13 @@ info_orders as (
         u.id_user,
         u.first_name,
         u.last_name,
-        u.phone_number,
-        u.email,
-        u.address,
+        --u.phone_number,
+        --u.email,
+        --u.address,
         u.zipcode,
-        u.city,
-        u.country,
-        u.state,
+        --u.city,
+        --u.country,
+        --u.state,
         count(distinct o.id_order) as numb_of_total_orders,
         sum(o.quantity) as numb_of_total_products,
         round(sum(o.order_cost_USD),2) as total_order_cost,
@@ -31,9 +31,8 @@ info_orders as (
                 on u.id_user = o.id_user
                     left join promos p
                 on o.id_promo = p.id_promo
-
-           {{dbt_utils.group_by(10)}}
-                order by id_user
+                GROUP BY 1,2,3,4
+                order by total_order_cost DESC
         )
 
-select * from info_orders
+select * from info_orders WHERE numb_of_total_products>0

@@ -1,9 +1,4 @@
-{{
-    config(
-        materialized='incremental',
-        unique_key=['id_order']       
-    )
-}}
+
 
 
 with 
@@ -35,8 +30,3 @@ with
 
 select * from orders 
 
-{% if is_incremental() %}
-
-  where _fivetran_synced > (select max(_fivetran_synced) from {{ this }})
-
-{% endif %}

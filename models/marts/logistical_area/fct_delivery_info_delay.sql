@@ -5,14 +5,15 @@ WITH int_ord_del AS (
 ),
 metrics AS (
     SELECT
+        id_order,
         shipping_service,
         time_to_deliver,
         delivery_info,
-        earlier_days,
+        --earlier_days,
         delay_days,
-        AVG(delay_days) OVER (PARTITION BY shipping_service) AS average_delay
+        AVG(delay_days) OVER (PARTITION BY shipping_service) AS avg_delay_serv
     FROM int_ord_del
     WHERE delay_days > 0
 )
 SELECT * FROM metrics
-ORDER BY average_delay
+ORDER BY avg_delay_serv desc

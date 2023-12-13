@@ -146,7 +146,7 @@ sources:
             description: >
               Timestamp when the data is loaded into Snowflake.
 
-      - name: order_items 
+      - name: order_items_hist
         loaded_at_field: _fivetran_synced
         description: >
           Details of products within orders.

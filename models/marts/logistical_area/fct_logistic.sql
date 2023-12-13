@@ -7,11 +7,8 @@
      fct_logistic as (
     select
         d.id_shipping_service,
-        --i.id_shipping_service,
         i.id_order,
         i.shipping_service,
-        --i.shipping_cost_USD,
-        --i.id_tracking,
         i.status,
         i.created_at,
         i.estimated_delivery_at,
