@@ -43,12 +43,20 @@ models:
         +schema: google_sheets
       sql_server_dbo:
         +schema: sql_server_dbo
+      my_stages:
+        +schema: my_stages
+        base:
+
       
     marts:
       +materialized: table
       +database: "{{ env_var('DBT_ENVIRONMENTS') }}_GOLD_DB"
+      logistical_area:
+        +materialized: table
       core:
         +schema: core
+        intermediate:
+          
 seeds:
   +schema: seed_data
   +database: "{{ env_var('DBT_ENVIRONMENTS') }}_BRONZE_DB"        

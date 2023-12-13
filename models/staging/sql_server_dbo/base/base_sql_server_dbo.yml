@@ -1,0 +1,17 @@
+version: 2
+
+models:
+  - name: base_stg_addresses
+    description: ""
+    columns:
+      - name: id_address
+        description: ""
+      - name: zipcode
+        description: ""
+      - name: country
+        description: ""
+      - name: address
+      - name: state
+      - name:  _fivetran_deleted
+      - name:  _fivetran_synced
+        description: ""

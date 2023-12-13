@@ -1,16 +1,18 @@
 {{
-  config(
-    materialized='table'
-  )
-}}
+    config(
+        materialized='incremental',
+        unique_key=['id_order']
 
+       
+    )
+}}
 
 
 with 
 
 source as (
 
-    select * from {{ source('sql_server_dbo', 'orders') }}
+    select * from {{ source('sql_server_dbo', 'orders_hist') }}
 
 ),
 
@@ -21,7 +23,7 @@ select
         cast(decode(promo_id,'','WITHOUT-PROMO',upper(promo_id)) as varchar) as  promo_description,
         cast({{ dbt_utils.generate_surrogate_key(['order_id']) }} as varchar) as id_order,
         order_id,
-        cast(shipping_service as varchar) as shipping_servic,
+        cast(shipping_service as varchar) as shipping_service,
         cast(shipping_cost as float) as shipping_cost_USD,
         cast({{ dbt_utils.generate_surrogate_key(['address_id']) }} as varchar) as id_address,
         cast(created_at as date) as created_at,
@@ -41,5 +43,8 @@ select
 
 select * from stg_orders
 
+{% if is_incremental() %}
 
+  where _fivetran_synced > (select max(_fivetran_synced) from {{ this }})
 
+{% endif %}

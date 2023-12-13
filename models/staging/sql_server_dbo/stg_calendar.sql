@@ -22,10 +22,15 @@ WITH date_spine AS (
 ), calculated as (
 
     SELECT
+      year(date_day)*10000+month(date_day)*100+day(date_day) as id_date,
       date_day,
       DAYNAME(date_day) as day_name,
       DATE_PART('month', date_day) as month,
-      DATE_PART('year', date_day) as year
+      monthname(date_day) as desc_month,
+      DATE_PART('year', date_day) as year,
+      year(date_day)*100+month(date_day) as id_year_month,
+      year(date_day)||weekiso(date_day)||dayofweek(date_day) as year_week_day,
+      weekiso(date_day) as week
       from date_spine )
 
 

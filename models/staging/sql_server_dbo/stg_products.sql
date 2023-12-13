@@ -1,7 +1,7 @@
 {{
-  config(
-    materialized='table'
-  )
+    config(
+        tags=['Views'],
+    )
 }}
 
 
@@ -13,16 +13,25 @@ source as (
 
 ),
 
+-- Como práctica, en todos los stg_ del proyecto se hashearan todos los id_ procedentes del 
+-- operacional por dos razones:
+--      - Para evitar que los id_ del operacional sean los mismos en el informacional (esto 
+--        sería una buena practica generalizada para evitar problemas en caso de que cambie
+--        la forma de las pk en el operacional)
+--      - Asegurar que todos los id sean un hash.
+-- Para todo ello se usará la función generate_surrogate_key del paquete dbt_utils
+
+
 stg_products as (
 
     select
-        cast({{ dbt_utils.generate_surrogate_key(['product_id']) }} as varchar) as id_product,
+        {{ dbt_utils.generate_surrogate_key(['product_id']) }} :: varchar as id_product,
         product_id,
-        cast(name as varchar) as product_name,
-        cast(price as float) as price_USD,
-        cast(inventory as int) as inventory,
-        _fivetran_deleted,
-        _fivetran_synced
+        name :: varchar as product_name,
+        price :: float as price_USD, -- USD: United States Dollars
+        inventory :: int as stock, -- las unidades que forman el inventario son enteros
+        _fivetran_deleted, -- procede de Fivetran como un bool
+        _fivetran_synced :: date as _fivetran_synced-- creo que voy a trabajar solo con date, sin time
 
     from source
 
