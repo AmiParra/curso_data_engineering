@@ -1,9 +1,4 @@
-{{
-    config(
-        materialized='incremental',
-        unique_key=['id_order']
-    )
-}}
+
 
 WITH orders AS (
     select * from {{ ref('stg_orders') }}
@@ -38,7 +33,8 @@ comb_order_product_details AS (
         oi.quantity,
         p.product_name,
         p.business,
-        p.price_USD
+        p.price_USD,
+        o._fivetran_synced 
     FROM orders o
     LEFT JOIN order_items oi ON o.id_order = oi.id_order
     LEFT JOIN products p ON p.id_product = oi.id_product
@@ -52,8 +48,3 @@ order by id_order
 
 
 
-{% if is_incremental() %}
-
-  where _fivetran_synced > (select max(_fivetran_synced) from {{ this }})
-
-{% endif %}
