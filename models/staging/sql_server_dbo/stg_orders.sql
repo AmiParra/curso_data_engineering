@@ -1,8 +1,8 @@
 {{
     config(
         materialized='incremental',
-        unique_key=['id_order'],
-        tags=['order_incremental'] 
+        unique_key=['id_order']
+
        
     )
 }}

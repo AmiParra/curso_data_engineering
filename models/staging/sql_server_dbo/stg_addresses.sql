@@ -1,8 +1,7 @@
 {{
     config(
         materialized='incremental',
-        unique_key=['id_address'],
-        tags=['add_incremental'] 
+        unique_key=['id_address']
        
     )
 }}
