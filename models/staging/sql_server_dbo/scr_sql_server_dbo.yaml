@@ -57,7 +57,6 @@ sources:
           - name: event_id
             tests: 
               - unique
-              - positive_value
             description: > 
               Unique identifier for events.
           - name: page_url
@@ -159,6 +158,8 @@ sources:
             description: >
               Unique identifier for products in the order.
           - name: quantity
+            tests: 
+              - positive_value
             description: >
               Quantity of products in the order.
           - name: _fivetran_deleted
