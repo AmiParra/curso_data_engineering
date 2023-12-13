@@ -1,8 +1,10 @@
+
 {{
   config(
-    materialized='table'
+    tags='Views'
   )
 }}
+
 
 
 

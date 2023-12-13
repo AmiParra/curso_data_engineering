@@ -1,3 +1,11 @@
+{{
+    config(
+        materialized='incremental',
+        unique_key=['id_order'],
+        tags=['order_incremental'] 
+    )
+}}
+
 WITH orders AS (
     select * from {{ ref('stg_orders') }}
 ),
@@ -13,7 +21,8 @@ products AS (
 comb_order_product_details AS (
     SELECT
         o.id_order,
-        --o.id_promo,
+        o.id_promo,
+        o.id_user,
         o.promo_description,
         --o.shipping_service,
         o.shipping_cost_USD,
@@ -21,7 +30,6 @@ comb_order_product_details AS (
         o.created_at,
         --o.estimated_delivery_at,
         o.order_cost_USD,
-        --o.id_user,
         o.order_total_USD,
         --o.delivered_at,
         --o.id_tracking,
@@ -45,3 +53,8 @@ order by id_order
 
 
 
+{% if is_incremental() %}
+
+  where _fivetran_synced > (select max(_fivetran_synced) from {{ this }})
+
+{% endif %}

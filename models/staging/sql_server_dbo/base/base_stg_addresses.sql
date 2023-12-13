@@ -31,7 +31,7 @@ with base_stg_addresses as (
         _fivetran_deleted, -- procede de Fivetran como un bool
         _fivetran_synced :: date as _fivetran_synced-- creo que voy a trabajar solo con date, sin time
 
-    from {{ source("sql_server_dbo", "addresses") }} where _fivetran_deleted = false or _fivetran_deleted is null
+    from {{ source("sql_server_dbo", "addresses_hist") }} where _fivetran_deleted = false or _fivetran_deleted is null
 
 )
 

@@ -2,17 +2,21 @@
     config(
         materialized='incremental',
         unique_key=['id_order'],
-        tags=['incremental'] 
+        tags=['order_incremental'] 
+       
     )
 }}
 
-with orders as (
+
+with 
+
+    orders as (
 
     select
         id_order,
         id_promo,
         promo_description,
-        shipping_service,
+        decode(shipping_service,'', 'Non assigned', shipping_service ) as shipping_service,
         shipping_cost_USD,
         id_address,
         created_at,
@@ -26,9 +30,15 @@ with orders as (
         id_user,
         _fivetran_deleted,
         _fivetran_synced 
-    
-    from {{ ref('stg_orders') }}
+        
+    from {{ ref('stg_orders') }} 
     
 )
 
-select * from orders
+select * from orders 
+
+{% if is_incremental() %}
+
+  where _fivetran_synced > (select max(_fivetran_synced) from {{ this }})
+
+{% endif %}

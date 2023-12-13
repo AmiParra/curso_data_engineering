@@ -1,4 +1,11 @@
-
+{{
+    config(
+        materialized='incremental',
+        unique_key=['id_order'],
+        tags=['order_incremental'] 
+       
+    )
+}}
 
 with 
     order_delivery as (
@@ -39,31 +46,10 @@ with
 )
 
 
-  /*   order_delivery_info as (
-        select
-             {{ dbt_utils.generate_surrogate_key(['shipping_service', 'created_at', 'estimated_delivery_at', 'delivered_at', 'time_to_deliver', 'earlier_days', 'delay_days'])}} as id_delivery_info,
-            id_order,
-            shipping_service,
-            shipping_cost_USD,
-            id_address,
-            order_cost_USD,
-            order_total_USD,
-            id_tracking,
-            status,
-            created_at,
-            estimated_delivery_at,
-            delivered_at,
-            time_to_deliver,
-            delivery_info,
-            earlier_days,
-            delay_days,
-            _fivetran_deleted,
-            _fivetran_synced
-
-        from order_delivery
-
-    )
-*/
-
 select * from  order_delivery
 
+{% if is_incremental() %}
+
+  where _fivetran_synced > (select max(_fivetran_synced) from {{ this }})
+
+{% endif %}

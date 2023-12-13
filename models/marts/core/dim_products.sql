@@ -1,10 +1,4 @@
-{{
-    config(
-        materialized='incremental',
-        unique_key=['id_product'],
-        tags=['incremental'] 
-    )
-}}
+
 
 with product as (
     select * from {{ ref('stg_products') }}

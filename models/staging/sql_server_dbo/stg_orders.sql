@@ -1,16 +1,18 @@
 {{
     config(
-        tags=['Views'],
+        materialized='incremental',
+        unique_key=['id_order'],
+        tags=['order_incremental'] 
+       
     )
 }}
-
 
 
 with 
 
 source as (
 
-    select * from {{ source('sql_server_dbo', 'orders') }}
+    select * from {{ source('sql_server_dbo', 'orders_hist') }}
 
 ),
 
@@ -41,3 +43,8 @@ select
 
 select * from stg_orders
 
+{% if is_incremental() %}
+
+  where _fivetran_synced > (select max(_fivetran_synced) from {{ this }})
+
+{% endif %}

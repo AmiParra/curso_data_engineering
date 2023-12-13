@@ -1,10 +1,4 @@
-{{
-    config(
-        materialized='incremental',
-        unique_key=['id_user'],
-        tags=['incremental'] 
-    )
-}}
+
 
 with users as (
       select * from {{ ref('stg_users') }}),
@@ -32,8 +26,3 @@ dim_users as (
 
 select * from dim_users
 
-{% if is_incremental() %}
-
-  where id_user in (select id_user from dim_users where _fivetran_synced > (select max(_fivetran_synced) from {{ this }}))
-
-{% endif %}

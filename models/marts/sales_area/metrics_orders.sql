@@ -1,3 +1,12 @@
+{{
+    config(
+        materialized='incremental',
+        unique_key=['id_order'],
+        tags=['order_incremental'] 
+       
+    )
+}}
+
 WITH orders AS (
     select * from {{ ref('stg_orders') }}
 ),
@@ -46,3 +55,9 @@ group by product_name
 order by avg_product_units desc
 --select * from comb_order_product_details
 --order by id_order
+
+{% if is_incremental() %}
+
+  where _fivetran_synced > (select max(_fivetran_synced) from {{ this }})
+
+{% endif %}
